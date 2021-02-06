@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import TodoList from "./components/TodoList";
 
 function App() {
+  const [tab, setTab] = useState([]);
+  useEffect(() => {
+    newTab();
+  }, []);
+  const newTab = () => {
+    const newTab = [1];
+    const numberAdd = tab.concat(newTab);
+    setTab(numberAdd);
+    console.log(tab);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="row">
+      {tab.map((x, i) => {
+        return x === 1 ? (
+          <div className="todo-app" key={i}>
+            <h1> {i + 1}</h1> <TodoList />
+          </div>
+        ) : (
+          <div className="todo-app" key={i}>
+            <h1> {i}</h1> <TodoList />
+          </div>
+        );
+      })}
+
+      <button className="button" onClick={newTab}>
+        +
+      </button>
     </div>
   );
 }
